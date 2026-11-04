@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CredChain</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">CredChain</div>
+    <button id="connectBtn">Connect MetaMask</button>
+  </header>
+  <p id="status" class="status">Not connected</p>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="verify">Verify</button>
+    <button class="tab" data-tab="issue">Issue</button>
+    <button class="tab" data-tab="wallet">My Credentials</button>
+    <button class="tab" data-tab="admin">Admin</button>
+  </nav>
+
+  <main>
+    <section id="verify" class="panel active">
+      <h2>Verify a certificate</h2>
+      <p class="hint">Drop the original certificate file. It is hashed in your browser and never uploaded.</p>
+      <label class="drop">
+        <input type="file" id="verifyFile" />
+        <span id="verifyFileName">Choose a file</span>
+      </label>
+      <p class="or">or paste a hash</p>
+      <input id="verifyHash" placeholder="0x..." />
+      <button id="verifyBtn">Verify</button>
+      <div id="verifyResult" class="result"></div>
+    </section>
+
+    <section id="issue" class="panel">
+      <h2>Issue a credential</h2>
+      <label>Holder wallet address<input id="holder" placeholder="0x..." /></label>
+      <label>Credential type<input id="credType" placeholder="BSc Computer Science" /></label>
+      <label>Certificate file
+        <input type="file" id="issueFile" />
+      </label>
+      <label>Metadata URI (optional)<input id="metaUri" placeholder="ipfs://..." /></label>
+      <label>Expiry date (optional)<input type="date" id="expiry" /></label>
+      <p class="mono" id="issueHash"></p>
+      <button id="issueBtn">Issue on-chain</button>
+      <div id="issueResult" class="result"></div>
+
+      <h3>Revoke</h3>
+      <label>Credential ID<input id="revokeId" type="number" min="1" /></label>
+      <label>Reason<input id="revokeReason" placeholder="Issued in error" /></label>
+      <button id="revokeBtn" class="danger">Revoke</button>
+      <div id="revokeResult" class="result"></div>
+    </section>
+
+    <section id="wallet" class="panel">
+      <h2>Credentials held by this wallet</h2>
+      <button id="loadMine">Load</button>
+      <div id="mine"></div>
+    </section>
+
+    <section id="admin" class="panel">
+      <h2>Manage issuers</h2>
+      <label>Issuer address<input id="issuerAddr" placeholder="0x..." /></label>
+      <label>Institution name<input id="issuerName" placeholder="State University" /></label>
+      <div class="row">
+        <button id="addIssuerBtn">Add issuer</button>
+        <button id="removeIssuerBtn" class="danger">Remove issuer</button>
+      </div>
+      <div id="adminResult" class="result"></div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
